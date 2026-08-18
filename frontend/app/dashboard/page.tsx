@@ -113,8 +113,8 @@ export default function DashboardPage() {
         setStats({
           totalReviews: total,
           avgScore,
-          topScholarship: SCHOLARSHIPS[topScholarship]?.name || "Chevening",
-          lastReviewDate: lastReview ? new Date(lastReview).toLocaleDateString() : "",
+          topScholarship: total > 0 && topScholarship ? (SCHOLARSHIPS[topScholarship]?.name || topScholarship) : "—",
+          lastReviewDate: total > 0 && lastReview ? new Date(lastReview).toLocaleDateString() : "—",
         });
       }
     } catch (e) {
@@ -501,7 +501,9 @@ export default function DashboardPage() {
                   <div style={{ fontSize: "0.72rem", color: "var(--fog)", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "var(--font-mono)", marginTop: "0.4rem", fontWeight: 600 }}>Total Reviews</div>
                 </div>
                 <div style={{ background: "var(--stat-box-bg)", border: "1px solid var(--stat-box-border)", padding: "1.25rem 1rem", borderRadius: "6px", textAlign: "center" }}>
-                  <div style={{ fontSize: "2.2rem", fontWeight: 700, fontFamily: "var(--font-display)", color: "var(--gold-bright)", lineHeight: 1.1 }}>{stats.avgScore}/10</div>
+                  <div style={{ fontSize: "2.2rem", fontWeight: 700, fontFamily: "var(--font-display)", color: "var(--gold-bright)", lineHeight: 1.1 }}>
+                    {stats.totalReviews > 0 ? `${stats.avgScore}/10` : "—"}
+                  </div>
                   <div style={{ fontSize: "0.72rem", color: "var(--fog)", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "var(--font-mono)", marginTop: "0.4rem", fontWeight: 600 }}>Avg Score</div>
                 </div>
                 <div style={{ background: "var(--stat-box-bg)", border: "1px solid var(--stat-box-border)", padding: "1.25rem 1rem", borderRadius: "6px", textAlign: "center" }}>
