@@ -100,7 +100,18 @@ export default function DashboardPage() {
     return s?.questions?.[questionKey]?.label || questionKey;
   };
 
-  const userName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Scholar";
+  const getFirstName = () => {
+    const fullName = user?.user_metadata?.full_name?.trim();
+    if (fullName) {
+      const first = fullName.split(/\s+/)[0];
+      return first.charAt(0).toUpperCase() + first.slice(1);
+    }
+    const emailName = user?.email?.split("@")[0]?.trim();
+    if (emailName) return emailName.charAt(0).toUpperCase() + emailName.slice(1);
+    return "Scholar";
+  };
+
+  const firstName = getFirstName();
 
   if (!authLoading && !user) {
     return (
@@ -135,7 +146,7 @@ export default function DashboardPage() {
         <section className="dash-hero">
           <div>
             <h1 className="dash-hero-title">
-              Welcome back, {userName} 👋
+              Welcome back, {firstName}
             </h1>
             <p className="dash-hero-subtitle">
               Track your essay evaluations, review panel feedback scores, and rubric alignment over time.
@@ -296,7 +307,7 @@ export default function DashboardPage() {
             {/* Reading Panel Guidance Card */}
             <div className="dash-panel">
               <h3 className="dash-panel-title" style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>
-                💡 Review Panel Insights
+                Review Panel Insights
               </h3>
               <p style={{ fontSize: "0.85rem", color: "var(--fog)", lineHeight: 1.5, margin: "0 0 1rem" }}>
                 Key principles evaluated across official reading committees:
