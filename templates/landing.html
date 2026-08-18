@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neslink AI — Scholarship Essay Review & Coaching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,500;0,600;0,700;1,500;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  window.SUPABASE_CONFIG = {
+    url: "{{ supabase_url }}",
+    anonKey: "{{ supabase_anon_key }}"
+  };
+</script>
+<script src="{{ url_for('static', filename='auth.js') }}"></script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="navbar-inner">
+    <div class="brand">
+      <a href="/" class="brand-title">Neslink <span class="ai-mark">AI</span></a>
+    </div>
+
+    <nav class="nav-links">
+      <a href="#scholarships">Scholarships</a>
+      <a href="#rubrics">Rubrics</a>
+      <a href="#features">Features</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Guest navigation -->
+      <div id="auth-nav-guest" class="auth-nav-group">
+        <a href="/login" class="nav-auth-link">Sign In</a>
+        <a href="/signup" class="btn-auth-link">Sign Up</a>
+      </div>
+
+      <!-- User navigation -->
+      <div id="auth-nav-user" class="auth-nav-group" style="display: none;">
+        <span class="user-badge" id="auth-user-email"></span>
+        <button class="btn-sign-out btn-secondary-sm" type="button">Sign Out</button>
+      </div>
+
+      <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">☀️ Light</button>
+      <a href="/app" class="btn-primary-sm">Reviewer Desk →</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="hero-container">
+    <h1 class="hero-title">Get Grounded Feedback on Your Scholarship Essays</h1>
+    <p class="hero-subtitle">Targeted coaching and rubric-grounded analysis across global scholarship applications. Prepare for greatness before you submit.</p>
+    <div class="hero-cta-group">
+      <a href="/app" class="btn-primary-hero">Launch Reviewer Desk →</a>
+      <a href="#rubrics" class="btn-secondary-hero">View Rubric Criteria</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS HIGHLIGHT STRIP -->
+<section class="stats-strip">
+  <div class="stats-container">
+    <div class="stat-item">
+      <div class="stat-num">Global</div>
+      <div class="stat-label">Multi-Scholarship Rubric Alignment</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">1-10</div>
+      <div class="stat-label">Calibrated Scoring & Assessment Grid</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">Line Notes</div>
+      <div class="stat-label">Direct Sentence & Evidence Feedback</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Private & Authentic Coaching</div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHOLARSHIPS CATALOG SECTION -->
+<section class="section alt-bg" id="scholarships">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Supported Scholarships</h2>
+      <p class="section-subtitle">Tailored essay coaching calibrated specifically against each scholarship committee's published criteria.</p>
+    </div>
+
+    <div class="scholarships-grid">
+      <div class="scholarship-card">
+        <div class="scholarship-card-header">
+          <h3>Chevening Scholarship</h3>
+          <span class="badge-available">Available Now</span>
+        </div>
+        <p class="scholarship-description">The UK government's flagship global scholarship program for outstanding leaders.</p>
+        <div class="scholarship-essay-types"><strong>Focus:</strong> 4 Core 500-word Essays</div>
+      </div>
+
+      <div class="scholarship-card scholarship-coming-soon">
+        <div class="scholarship-card-header">
+          <h3>Mastercard Foundation Scholars</h3>
+          <span class="badge-coming-soon">Coming Soon</span>
+        </div>
+        <p class="scholarship-description">Developing transformative leaders across Africa with a focus on community giveback and leadership.</p>
+        <div class="scholarship-essay-types"><strong>Focus:</strong> Community Giveback & Transformative Leadership</div>
+      </div>
+
+      <div class="scholarship-card scholarship-coming-soon">
+        <div class="scholarship-card-header">
+          <h3>DAAD Scholarships (Germany)</h3>
+          <span class="badge-coming-soon">Coming Soon</span>
+        </div>
+        <p class="scholarship-description">Development-related postgraduate courses (EPOS) funded by the German Academic Exchange Service.</p>
+        <div class="scholarship-essay-types"><strong>Focus:</strong> Letter of Motivation & Study Plan</div>
+      </div>
+
+      <div class="scholarship-card scholarship-coming-soon">
+        <div class="scholarship-card-header">
+          <h3>Commonwealth Scholarship</h3>
+          <span class="badge-coming-soon">Coming Soon</span>
+        </div>
+        <p class="scholarship-description">For talented individuals from Commonwealth nations to gain skills required for sustainable development impact.</p>
+        <div class="scholarship-essay-types"><strong>Focus:</strong> Development Impact & Research Proposal</div>
+      </div>
+
+      <div class="scholarship-card scholarship-coming-soon">
+        <div class="scholarship-card-header">
+          <h3>Fulbright Foreign Student Program</h3>
+          <span class="badge-coming-soon">Coming Soon</span>
+        </div>
+        <p class="scholarship-description">US Department of State flagship international exchange program for graduate study and research.</p>
+        <div class="scholarship-essay-types"><strong>Focus:</strong> Study Objectives & Personal Statement</div>
+      </div>
+
+      <div class="scholarship-card scholarship-coming-soon">
+        <div class="scholarship-card-header">
+          <h3>Erasmus Mundus Joint Masters</h3>
+          <span class="badge-coming-soon">Coming Soon</span>
+        </div>
+        <p class="scholarship-description">High-level integrated European master degree programs across international universities.</p>
+        <div class="scholarship-essay-types"><strong>Focus:</strong> Statement of Purpose & Academic Motivation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RUBRIC CATEGORIES OVERVIEW -->
+<section class="section" id="rubrics">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Essay Assessment Rubrics</h2>
+      <p class="section-subtitle">What selection committees evaluate across core scholarship essay dimensions.</p>
+    </div>
+    <div class="rubric-grid">
+      <div class="rubric-card">
+        <div class="rubric-card-header">Leadership and Influence</div>
+        <p class="rubric-prompt">“Describe your leadership and influencing skills. What have you done to make a positive impact on others?”</p>
+        <div class="rubric-key">
+          <strong>Key Focus:</strong> Specific personal action driving measurable outcomes, not generic team credit.
+        </div>
+      </div>
+
+      <div class="rubric-card">
+        <div class="rubric-card-header">Networking & Relationship-Building</div>
+        <p class="rubric-prompt">“Give an example of how you have built strong professional relationships and how this led to positive outcomes...”</p>
+        <div class="rubric-key">
+          <strong>Key Focus:</strong> Strategic relationship building resulting in tangible outcomes & realistic network plans.
+        </div>
+      </div>
+
+      <div class="rubric-card">
+        <div class="rubric-card-header">Course Choice & Academic Alignment</div>
+        <p class="rubric-prompt">“How will your chosen course help you address challenges linked to key priority areas?”</p>
+        <div class="rubric-key">
+          <strong>Key Focus:</strong> Concrete module research connected to home country challenges and strategic priority themes.
+        </div>
+      </div>
+
+      <div class="rubric-card">
+        <div class="rubric-card-header">Career Plan & Development Impact</div>
+        <p class="rubric-prompt">“How will your career plan support your ambitions to drive positive change?”</p>
+        <div class="rubric-key">
+          <strong>Key Focus:</strong> Clear short-term, mid-term, and long-term milestones with intent to return home and drive change.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="section alt-bg" id="features">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Designed for Serious Applicants</h2>
+      <p class="section-subtitle">Read your essays through the lens of an experienced review committee.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Rubric-Grounded Scoring</h3>
+        <p>Evaluated against specific scoring criteria for leadership impact, strategic networking, module alignment, and career milestones.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📌</div>
+        <h3>Specific Line Notes</h3>
+        <p>Pinpoints exact phrases across your draft with specific notes highlighting narrative strengths and areas needing evidence.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Priority Action Items</h3>
+        <p>Delivers a clear, prioritized checklist of what to fix first so you can edit efficiently before deadlines.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>Authentic Coaching</h3>
+        <p>Offers strict diagnosis and guidance while preserving your authentic writing and voice — never generates text for you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="section" id="faq">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary class="faq-question">Does Neslink AI rewrite or generate text for my application?</summary>
+        <p class="faq-answer">No. Neslink AI provides evaluation, line notes, and diagnostic coaching only — pointing out weaknesses and suggesting what a stronger version would demonstrate without writing replacement sentences for you.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">Which scholarships are currently supported?</summary>
+        <p class="faq-answer">Chevening Scholarship is available today with all 4 essay rubrics. Mastercard Foundation, DAAD, Commonwealth, and Fulbright rubrics are coming soon.</p>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-question">Is my essay draft kept confidential?</summary>
+        <p class="faq-answer">Yes. Your draft is processed for your private review session and is never shared, published, or used for model training.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <div class="footer-logo">Neslink <span class="ai-mark">AI</span></div>
+      <p>Global Scholarship Essay Assessment & Coaching Platform</p>
+    </div>
+    <div class="footer-links">
+      <a href="#scholarships">Scholarships</a>
+      <a href="#rubrics">Rubrics</a>
+      <a href="/login">Sign In</a>
+      <a href="/signup">Sign Up</a>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    &copy; 2026 Neslink AI. All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>

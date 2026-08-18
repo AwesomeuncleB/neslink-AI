@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neslink AI — Scholarship Essay Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,500;0,600;0,700;1,500;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  window.SUPABASE_CONFIG = {
+    url: "{{ supabase_url }}",
+    anonKey: "{{ supabase_anon_key }}"
+  };
+</script>
+<script src="{{ url_for('static', filename='auth.js') }}"></script>
+</head>
+<body>
+
+<header class="letterhead">
+  <div class="letterhead-inner">
+    <div class="letterhead-top">
+      <div class="letterhead-nav-left">
+        <a href="/" class="nav-back-link">← Home</a>
+      </div>
+      <div class="letterhead-nav-right">
+        <!-- Guest navigation -->
+        <div id="auth-nav-guest" class="auth-nav-group">
+          <a href="/login" class="nav-auth-link">Sign In</a>
+          <a href="/signup" class="btn-auth-link">Sign Up</a>
+        </div>
+
+        <!-- User navigation -->
+        <div id="auth-nav-user" class="auth-nav-group" style="display: none;">
+          <span class="user-badge" id="auth-user-email"></span>
+          <button class="btn-sign-out btn-secondary-sm" type="button">Sign Out</button>
+        </div>
+
+        <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">☀️ Light</button>
+      </div>
+    </div>
+    <h1>Neslink <span class="ai-mark">AI</span></h1>
+  </div>
+</header>
+
+<main class="desk">
+  <section class="sheet form-sheet">
+    <div class="sheet-label">Applicant copy</div>
+
+    <!-- 1. Scholarship Selector -->
+    <label class="field-label" for="scholarship-select">1. Select Scholarship Program</label>
+    <select id="scholarship-select">
+      <option value="chevening" selected>Chevening Scholarship (✓ Active)</option>
+      <option value="mastercard">Mastercard Foundation Scholars (Coming Soon)</option>
+      <option value="daad">DAAD Scholarships - Germany (Coming Soon)</option>
+      <option value="commonwealth">Commonwealth Scholarship (Coming Soon)</option>
+      <option value="fulbright">Fulbright Foreign Student Program (Coming Soon)</option>
+      <option value="erasmus">Erasmus Mundus Joint Masters (Coming Soon)</option>
+    </select>
+
+    <!-- Questions Container (shown for active scholarships) -->
+    <div id="active-questions-container">
+      <label class="field-label" for="question-select">2. Which question are you answering?</label>
+      <select id="question-select">
+        {% for q in questions %}
+        <option value="{{ q.key }}" data-limit="{{ q.word_limit }}">{{ q.label }}</option>
+        {% endfor %}
+      </select>
+
+      <div class="prompt-echo" id="prompt-echo"></div>
+
+      <label class="field-label" for="essay-text">Your essay</label>
+      <textarea id="essay-text" placeholder="Paste your draft here..." spellcheck="false"></textarea>
+
+      <div class="meta-row">
+        <span id="word-count">0 words</span>
+        <span id="word-limit-note"></span>
+      </div>
+
+      <button id="submit-btn">Submit for reading</button>
+      <p class="disclaimer">This reviews and comments on your own writing only — it never drafts or rewrites sentences for you, in line with scholarship rules on AI-generated content.</p>
+    </div>
+
+    <!-- Coming Soon Container -->
+    <div id="coming-soon-container" style="display: none; margin-top: 1.5rem; padding: 1.5rem; background: rgba(211, 168, 86, 0.08); border: 1px solid var(--gold); border-radius: 4px;">
+      <h3 id="coming-soon-title" style="font-family: var(--font-display); color: var(--gold-bright); margin: 0 0 0.5rem;">Scholarship Rubric Coming Soon</h3>
+      <p id="coming-soon-desc" style="font-size: 0.92rem; color: var(--ink-soft); line-height: 1.5; margin: 0 0 1rem;">The reading committee rubric for this scholarship is currently being calibrated.</p>
+      <button type="button" class="btn-primary-sm" id="btn-switch-chevening">Switch to Chevening Scholarship →</button>
+    </div>
+  </section>
+
+  <section class="sheet verdict-sheet" id="verdict-sheet">
+    <div class="sheet-label">Reading panel copy</div>
+    <div class="verdict-empty" id="margin-empty">
+      <p>Your assessment sheet will appear here — a score, a criteria grid, and what to fix first.</p>
+    </div>
+    <div class="verdict-results" id="margin-results" hidden></div>
+  </section>
+</main>
+
+<script id="questions-data" type="application/json">
+{{ questions_json | safe }}
+</script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
