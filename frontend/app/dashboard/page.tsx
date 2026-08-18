@@ -496,21 +496,21 @@ export default function DashboardPage() {
             <section className="sheet" style={{ gridColumn: "1 / -1", marginBottom: "1.5rem" }}>
               <div className="sheet-label">Your Overview</div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginTop: "1rem" }}>
-                <div style={{ background: "var(--navy-raised)", padding: "1rem", borderRadius: "4px", textAlign: "center" }}>
-                  <div style={{ fontSize: "2rem", fontWeight: 700, fontFamily: "var(--font-display)" }}>{stats.totalReviews}</div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--fog)", textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "var(--font-mono)" }}>Total Reviews</div>
+                <div style={{ background: "var(--stat-box-bg)", border: "1px solid var(--stat-box-border)", padding: "1.25rem 1rem", borderRadius: "6px", textAlign: "center" }}>
+                  <div style={{ fontSize: "2.2rem", fontWeight: 700, fontFamily: "var(--font-display)", color: "var(--gold-bright)", lineHeight: 1.1 }}>{stats.totalReviews}</div>
+                  <div style={{ fontSize: "0.72rem", color: "var(--fog)", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "var(--font-mono)", marginTop: "0.4rem", fontWeight: 600 }}>Total Reviews</div>
                 </div>
-                <div style={{ background: "var(--navy-raised)", padding: "1rem", borderRadius: "4px", textAlign: "center" }}>
-                  <div style={{ fontSize: "2rem", fontWeight: 700, fontFamily: "var(--font-display)" }}>{stats.avgScore}/10</div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--fog)", textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "var(--font-mono)" }}>Avg Score</div>
+                <div style={{ background: "var(--stat-box-bg)", border: "1px solid var(--stat-box-border)", padding: "1.25rem 1rem", borderRadius: "6px", textAlign: "center" }}>
+                  <div style={{ fontSize: "2.2rem", fontWeight: 700, fontFamily: "var(--font-display)", color: "var(--gold-bright)", lineHeight: 1.1 }}>{stats.avgScore}/10</div>
+                  <div style={{ fontSize: "0.72rem", color: "var(--fog)", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "var(--font-mono)", marginTop: "0.4rem", fontWeight: 600 }}>Avg Score</div>
                 </div>
-                <div style={{ background: "var(--navy-raised)", padding: "1rem", borderRadius: "4px", textAlign: "center" }}>
-                  <div style={{ fontSize: "1.25rem", fontWeight: 600, fontFamily: "var(--font-display)" }}>{stats.topScholarship}</div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--fog)", textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "var(--font-mono)" }}>Top Scholarship</div>
+                <div style={{ background: "var(--stat-box-bg)", border: "1px solid var(--stat-box-border)", padding: "1.25rem 1rem", borderRadius: "6px", textAlign: "center" }}>
+                  <div style={{ fontSize: "1.3rem", fontWeight: 700, fontFamily: "var(--font-display)", color: "var(--body-text)", lineHeight: 1.2 }}>{stats.topScholarship}</div>
+                  <div style={{ fontSize: "0.72rem", color: "var(--fog)", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "var(--font-mono)", marginTop: "0.4rem", fontWeight: 600 }}>Top Scholarship</div>
                 </div>
-                <div style={{ background: "var(--navy-raised)", padding: "1rem", borderRadius: "4px", textAlign: "center" }}>
-                  <div style={{ fontSize: "1.25rem", fontWeight: 600, fontFamily: "var(--font-display)" }}>{stats.lastReviewDate || "—"}</div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--fog)", textTransform: "uppercase", letterSpacing: "0.06em", fontFamily: "var(--font-mono)" }}>Last Review</div>
+                <div style={{ background: "var(--stat-box-bg)", border: "1px solid var(--stat-box-border)", padding: "1.25rem 1rem", borderRadius: "6px", textAlign: "center" }}>
+                  <div style={{ fontSize: "1.2rem", fontWeight: 700, fontFamily: "var(--font-display)", color: "var(--body-text)", lineHeight: 1.2 }}>{stats.lastReviewDate || "—"}</div>
+                  <div style={{ fontSize: "0.72rem", color: "var(--fog)", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "var(--font-mono)", marginTop: "0.4rem", fontWeight: 600 }}>Last Review</div>
                 </div>
               </div>
             </section>
@@ -535,16 +535,16 @@ export default function DashboardPage() {
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginTop: "1rem" }}>
                   {history.map((h, i) => (
-                    <div key={i} style={{ background: "var(--navy-raised)", border: "1px solid var(--rule-on-navy)", borderRadius: "4px", padding: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div key={i} style={{ background: "var(--stat-box-bg)", border: "1px solid var(--card-border)", borderRadius: "6px", padding: "1rem 1.25rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                       <div>
-                        <div style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "0.95rem" }}>
+                        <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", color: "var(--body-text)" }}>
                           {SCHOLARSHIPS[h.scholarship_key || "chevening"]?.name || "Chevening"}
                         </div>
-                        <div style={{ fontSize: "0.85rem", color: "var(--fog)", marginTop: "0.25rem" }}>
+                        <div style={{ fontSize: "0.85rem", color: "var(--fog)", marginTop: "0.25rem", fontFamily: "var(--font-mono)" }}>
                           {h.question_key || "Essay"} • {new Date(h.created_at).toLocaleDateString()}
                         </div>
                       </div>
-                      <div style={{ fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: "1.1rem", color: h.overall_score >= 7 ? "#34d399" : h.overall_score >= 5 ? "#fbbf24" : "#fb7185" }}>
+                      <div style={{ fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: "1.2rem", color: h.overall_score >= 7 ? "#34d399" : h.overall_score >= 5 ? "#fbbf24" : "#fb7185" }}>
                         {h.overall_score}/10
                       </div>
                     </div>
@@ -566,18 +566,21 @@ export default function DashboardPage() {
                   <div style={{ fontWeight: 600 }}>New Essay Review</div>
                   <div style={{ fontSize: "0.8rem", opacity: 0.8 }}>Submit a new draft for evaluation</div>
                 </button>
-                <div style={{ background: "var(--navy-raised)", border: "1px solid var(--rule-on-navy)", borderRadius: "4px", padding: "1rem" }}>
-                  <div style={{ fontWeight: 600, marginBottom: "0.5rem" }}>Available Scholarships</div>
+                <div style={{ background: "var(--stat-box-bg)", border: "1px solid var(--card-border)", borderRadius: "6px", padding: "1.25rem" }}>
+                  <div style={{ fontWeight: 700, marginBottom: "0.75rem", fontFamily: "var(--font-display)", color: "var(--body-text)", fontSize: "1rem" }}>Available Scholarships</div>
                   {scholarshipsList.map((s) => (
-                    <div key={s.key} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.5rem 0", borderBottom: "1px solid var(--rule-on-navy)", fontSize: "0.85rem" }}>
-                      <span>{s.name}</span>
+                    <div key={s.key} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.6rem 0", borderBottom: "1px solid var(--rule-on-navy)", fontSize: "0.9rem" }}>
+                      <span style={{ color: "var(--body-text)", fontWeight: 500 }}>{s.name}</span>
                       <span style={{ 
                         fontFamily: "var(--font-mono)", 
                         fontSize: "0.7rem", 
-                        padding: "0.2rem 0.4rem", 
-                        borderRadius: "3px",
-                        background: s.status === "active" ? "rgba(34, 197, 94, 0.12)" : "rgba(251, 191, 36, 0.12)",
-                        color: s.status === "active" ? "#22c55e" : "#fbbf24"
+                        padding: "0.25rem 0.5rem", 
+                        borderRadius: "4px",
+                        fontWeight: 700,
+                        letterSpacing: "0.04em",
+                        background: s.status === "active" ? "rgba(34, 197, 94, 0.15)" : "rgba(251, 191, 36, 0.15)",
+                        color: s.status === "active" ? "#4ade80" : "#fbbf24",
+                        border: `1px solid ${s.status === "active" ? "rgba(34, 197, 94, 0.3)" : "rgba(251, 191, 36, 0.3)"}`
                       }}>
                         {s.status === "active" ? "ACTIVE" : "COMING SOON"}
                       </span>

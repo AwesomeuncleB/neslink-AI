@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export default function SignupPage() {
@@ -19,6 +19,14 @@ export default function SignupPage() {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+
+    if (!isSupabaseConfigured()) {
+      setError(
+        "Supabase is not configured yet. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your Vercel Environment Variables and redeploy."
+      );
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -38,15 +46,19 @@ export default function SignupPage() {
       if (authError) throw authError;
 
       if (data.session) {
-        setSuccess("Account created successfully! Redirecting to Dashboard…");
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 600);
+        router.push("/dashboard");
+        return;
       } else {
         setSuccess("Account created! Please check your email inbox to confirm your account — clicking the link will take you directly to your Dashboard.");
       }
     } catch (err: any) {
-      setError(err.message || "Registration failed. Please check your information.");
+      if (err.message?.includes("Failed to fetch") || err.name === "TypeError") {
+        setError(
+          "Could not connect to Supabase authentication. Please verify that NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are correctly set in your environment variables."
+        );
+      } else {
+        setError(err.message || "Registration failed. Please check your information.");
+      }
     } finally {
       setLoading(false);
     }

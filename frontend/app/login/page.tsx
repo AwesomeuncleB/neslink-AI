@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export default function LoginPage() {
@@ -18,6 +18,14 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+
+    if (!isSupabaseConfigured()) {
+      setError(
+        "Supabase is not configured yet. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your Vercel Environment Variables and redeploy."
+      );
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -29,13 +37,17 @@ export default function LoginPage() {
       if (authError) throw authError;
 
       if (data.user) {
-        setSuccess("Signed in successfully! Redirecting to Dashboard…");
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 500);
+        router.push("/dashboard");
+        return;
       }
     } catch (err: any) {
-      setError(err.message || "Invalid email or password.");
+      if (err.message?.includes("Failed to fetch") || err.name === "TypeError") {
+        setError(
+          "Could not connect to Supabase authentication. Please verify that NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are correctly set in your environment variables."
+        );
+      } else {
+        setError(err.message || "Invalid email or password.");
+      }
     } finally {
       setLoading(false);
     }

@@ -1,27 +1,39 @@
 :root,
 [data-theme="dark"] {
-
-
-  --navy: #0f1d33;
-  --navy-raised: #16273e;
-  --paper: #faf6ec;
-  --paper-line: #e2d9bf;
-  --gold: #b58a3d;
-  --gold-bright: #d3a856;
-  --stamp-red: #8c2a3b;
-  --ink: #211c15;
-  --ink-soft: #57503f;
-  --fog: #93a1b8;
-  --rule-on-navy: rgba(180, 195, 220, 0.14);
-  --body-bg: #0f1d33;
-  --body-bg-gradient: radial-gradient(ellipse at 20% 0%, rgba(213, 176, 100, 0.05), transparent 55%),
-                      radial-gradient(ellipse at 85% 100%, rgba(140, 42, 59, 0.06), transparent 55%);
-  --body-text: #faf6ec;
-  --card-bg: #16273e;
-  --card-border: rgba(180, 195, 220, 0.14);
-  --footer-bg: #091220;
-  --rubric-card-bg: #faf6ec;
-  --rubric-card-text: #211c15;
+  --navy: #09121f;
+  --navy-raised: #0f1d32;
+  --body-bg: #09121f;
+  --body-bg-gradient: radial-gradient(ellipse at 20% 0%, rgba(213, 176, 100, 0.08), transparent 55%),
+                      radial-gradient(ellipse at 85% 100%, rgba(140, 42, 59, 0.08), transparent 55%);
+  --body-text: #f8fafc;
+  
+  /* Sheets & Cards */
+  --paper: #122138;
+  --paper-line: rgba(211, 168, 86, 0.25);
+  --card-bg: #122138;
+  --card-border: rgba(180, 195, 220, 0.18);
+  --rule-on-navy: rgba(180, 195, 220, 0.16);
+  
+  /* Typography */
+  --ink: #f8fafc;
+  --ink-soft: #cbd5e1;
+  --fog: #94a3b8;
+  
+  /* Accents */
+  --gold: #d4a347;
+  --gold-bright: #fbbf24;
+  --stamp-red: #fb7185;
+  --footer-bg: #060c15;
+  --rubric-card-bg: #122138;
+  --rubric-card-text: #f8fafc;
+  
+  /* Form & Stat specifics */
+  --stat-box-bg: #0b1526;
+  --stat-box-border: rgba(211, 168, 86, 0.22);
+  --input-bg: #0b1526;
+  --input-text: #f8fafc;
+  --input-border: rgba(180, 195, 220, 0.25);
+  
   --font-display: 'Petrona', serif;
   --font-body: 'PT Serif', serif;
   --font-mono: 'Courier Prime', monospace;
@@ -32,23 +44,36 @@
 [data-theme="light"] {
   --navy: #ffffff;
   --navy-raised: #f8fafc;
+  --body-bg: #f8fafc;
+  --body-bg-gradient: none;
+  --body-text: #0f172a;
+  
+  /* Sheets & Cards */
   --paper: #ffffff;
   --paper-line: #e2e8f0;
-  --gold: #d97706;
-  --gold-bright: #b45309;
-  --stamp-red: #dc2626;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --rule-on-navy: #e2e8f0;
+  
+  /* Typography */
   --ink: #0f172a;
   --ink-soft: #475569;
   --fog: #64748b;
-  --rule-on-navy: #e2e8f0;
-  --body-bg: #ffffff;
-  --body-bg-gradient: none;
-  --body-text: #0f172a;
-  --card-bg: #ffffff;
-  --card-border: #e2e8f0;
+  
+  /* Accents */
+  --gold: #d97706;
+  --gold-bright: #b45309;
+  --stamp-red: #e11d48;
   --footer-bg: #f8fafc;
   --rubric-card-bg: #ffffff;
   --rubric-card-text: #0f172a;
+  
+  /* Form & Stat specifics */
+  --stat-box-bg: #f8fafc;
+  --stat-box-border: #e2e8f0;
+  --input-bg: #ffffff;
+  --input-text: #0f172a;
+  --input-border: #cbd5e1;
 }
 
 * { box-sizing: border-box; }
@@ -202,14 +227,16 @@ body {
 }
 .field-label:first-of-type { margin-top: 0; }
 
-select, textarea, button { font-family: inherit; color: var(--ink); }
+select, textarea, input { 
+  font-family: inherit; 
+  color: var(--ink); 
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+}
 
 select {
   width: 100%;
   padding: 0.65rem 0.75rem;
-  border: 1px solid var(--paper-line);
-  background: var(--paper);
-  color: var(--ink);
   border-radius: 4px;
   font-size: 0.95rem;
 }
@@ -219,9 +246,11 @@ select {
   font-style: italic;
   font-size: 1.05rem;
   line-height: 1.5;
-  color: var(--ink-soft);
+  color: var(--gold-bright);
+  background: rgba(211, 168, 86, 0.08);
   border-left: 3px solid var(--gold);
-  padding: 0.15rem 0 0.15rem 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0 4px 4px 0;
   margin-top: 1rem;
 }
 
@@ -229,16 +258,13 @@ textarea {
   width: 100%;
   min-height: 300px;
   padding: 0.9rem 1rem;
-  border: 1px solid var(--paper-line);
-  background: var(--paper);
-  color: var(--ink);
   line-height: 1.58rem;
   border-radius: 4px;
   font-size: 0.98rem;
   resize: vertical;
 }
-textarea:focus-visible, select:focus-visible, button:focus-visible {
-  outline: 2px solid var(--stamp-red);
+textarea:focus-visible, select:focus-visible, input:focus-visible, button:focus-visible {
+  outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
 
@@ -376,7 +402,8 @@ textarea:focus-visible, select:focus-visible, button:focus-visible {
 .grid-table .crit-score {
   font-family: var(--font-mono);
   font-weight: 700;
-  color: var(--ink);
+  color: var(--gold-bright);
+  background: var(--stat-box-bg);
   width: 3.2rem;
   text-align: center;
   border-left: 1px solid var(--paper-line);
@@ -396,7 +423,7 @@ textarea:focus-visible, select:focus-visible, button:focus-visible {
 .line-note .quote {
   font-family: var(--font-body);
   font-style: italic;
-  color: var(--ink);
+  color: var(--gold-bright);
   border-bottom: 2px solid var(--stamp-red);
   padding-bottom: 1px;
 }
