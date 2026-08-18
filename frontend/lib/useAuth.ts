@@ -7,6 +7,8 @@ export type AppUser = {
   id: string;
   email: string;
   user_metadata?: any;
+  created_at?: string;
+  [key: string]: any;
 };
 
 export function useAuth() {
@@ -21,6 +23,7 @@ export function useAuth() {
           id: session.user.id,
           email: session.user.email ?? "",
           user_metadata: session.user.user_metadata,
+          created_at: session.user.created_at,
         });
       } else {
         setUser(null);
@@ -37,6 +40,7 @@ export function useAuth() {
           id: session.user.id,
           email: session.user.email ?? "",
           user_metadata: session.user.user_metadata,
+          created_at: session.user.created_at,
         });
       } else {
         setUser(null);
