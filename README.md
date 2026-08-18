@@ -1,58 +1,42 @@
-# Marginalia AI — Chevening Essay Review (MVP)
+# Neslink AI — Scholarship Essay Review & Coaching Platform
 
-Judges a draft Chevening essay against the official rubric for whichever of the
-4 questions it answers, and gives feedback — never rewrites the essay for the user
-(Chevening bans AI-generated content, so this stays a coaching tool, not a ghostwriter).
+Neslink AI provides rubric-grounded assessment and feedback for scholarship applicants across global programs (Chevening, Mastercard Foundation, DAAD, Commonwealth, Fulbright, and Erasmus).
 
-## Run it (5 minutes)
+---
 
-```bash
-cd chevening-judge
-python3 -m venv venv
-source venv/bin/activate       # Windows: venv\Scripts\activate
-pip install -r requirements.txt
+## 🚀 Tech Stack
 
-export GROQ_API_KEY="your_key_here"   # get one free at console.groq.com
-python app.py
+- **Frontend**: Next.js 16 (React 19, TypeScript, Vanilla CSS design system)
+- **Backend / Database**: Supabase (PostgreSQL, Row-Level Security, Auth)
+- **LLM Inference**: Groq LPU Engine (`openai/gpt-oss-120b`)
+
+---
+
+## ⚙️ Environment Variables
+
+Create `.env.local` in `frontend/` (or `.env` in the root):
+
+```env
+# Groq API Configuration
+GROQ_API_KEY=your_groq_api_key_here
+GROQ_MODEL=openai/gpt-oss-120b
+
+# Supabase Database Configuration
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 ```
 
-Open http://localhost:5050
+---
 
-## Add your winning essays (do this before real users touch it)
+## 🛠️ Quick Start
 
-Open `rubric.py` and paste your reference essays into `WINNING_ESSAYS`, under the
-matching question key (`leadership`, `networking`, `course`, `career`). They're used
-only as reference points for what strong evidence looks like — the model is explicitly
-told not to reward similarity to them, so applicants with very different backgrounds
-still get judged fairly.
+```bash
+# 1. Install frontend dependencies
+cd frontend
+npm install
 
-If you don't have winning essays for a question yet, leave that list empty — the
-rubric criteria alone (pulled from Chevening's official guidance) still drive the
-scoring.
+# 2. Run local development server
+npm run dev
+```
 
-## What's hardcoded that you may want to change
-
-- **Word limit**: set to 500 per question in `rubric.py` (`QUESTIONS[...]["word_limit"]`).
-  Chevening's exact limit has varied by cycle (300 in some recent guidance) — confirm
-  against the current year's actual application form and adjust if needed.
-- **Model**: `llama-3.3-70b-versatile` in `app.py`. Check console.groq.com/docs/models
-  if Groq deprecates it — swap `GROQ_MODEL` env var or the default in code.
-
-## Known limitations of this MVP
-
-- No auth, no database — nothing is saved between requests. Fine for testing with
-  yourself or a few friends; not fine for a real multi-user product yet.
-- No rate limiting — someone hammering `/api/judge` will run up your Groq bill.
-- The model can occasionally still return malformed JSON despite instructions —
-  the endpoint returns a 502 with the raw text in that case rather than crashing.
-- Reference essays are pasted directly into the system prompt (no retrieval). Fine
-  up to maybe 10-15 essays per question; beyond that you'll want the RAG version.
-
-## Natural next steps, in order
-
-1. Test with real drafts of your own essays first — sanity-check whether Groq's
-   feedback is actually good before you show this to anyone else.
-2. Add your winning essays.
-3. Add a simple password/shared secret if you're going to share the localhost link
-   with beta testers before deploying anywhere.
-4. Deploy (Render/Railway/Fly.io all have free tiers that work for this).
+Open [http://localhost:3000](http://localhost:3000) in your browser.

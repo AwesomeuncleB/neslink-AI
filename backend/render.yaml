@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: marginalia-api
+    name: neslink-api
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
@@ -9,7 +9,7 @@ services:
       - key: GROQ_API_KEY
         sync: false
       - key: GROQ_MODEL
-        value: llama-3.3-70b-versatile
+        value: openai/gpt-oss-120b
       - key: SUPABASE_URL
         sync: false
       - key: SUPABASE_ANON_KEY

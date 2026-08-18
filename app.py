@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://xbznwwkpovfrspvhslyq.supabase.co")
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY", os.environ.get("SUPABASE_KEY", ""))
 SUPABASE_KEY = SUPABASE_ANON_KEY
 

@@ -3,8 +3,8 @@ import { QUESTIONS, buildSystemPrompt } from "@/lib/rubrics";
 import { JudgeResult } from "@/lib/types";
 
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://xbznwwkpovfrspvhslyq.supabase.co";
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || "";
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || "";
 
 const DAILY_LIMIT = 4; // 4 essays per day (1 full round of all 4 scholarship questions)
 
