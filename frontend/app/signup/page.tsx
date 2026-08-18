@@ -30,9 +30,11 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const redirectUrl = typeof window !== "undefined"
-        ? `${window.location.origin}/auth/callback?next=/dashboard`
-        : undefined;
+      // Use explicit production URL if set; fall back to current origin (only works if running on the real server)
+      const siteBase =
+        process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+        (typeof window !== "undefined" ? window.location.origin : "");
+      const redirectUrl = siteBase ? `${siteBase}/auth/callback?next=/dashboard` : undefined;
 
       const { data, error: authError } = await supabase.auth.signUp({
         email,
